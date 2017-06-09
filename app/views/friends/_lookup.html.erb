@@ -1,6 +1,9 @@
 <div id="friend-lookup">
   <h3>Search for friends</h3>
-  <%= form_tag search_friends_path, remote: true, method: :get, id: 'friend-lookup-form' do %>
+  <%= form_tag search_friends_path, 
+      remote: true, 
+      method: :get, 
+      id: 'friend-lookup-form' do %>
     <div class="form-group row no-padding text-center col-md-12">
       <div class="col-md-10">
         <%= text_field_tag :search_param, 
@@ -11,7 +14,7 @@
       </div>
       <div class="col-md-2">
         <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-          <i class='fa fa-search'></i> Look up a friend
+          <i class='fa fa-search'></i> Look for a friend
         <% end %>
       </div>
     </div>
@@ -19,10 +22,11 @@
   <%= render 'common/spinner' %>
   <% if @users %>
     <% if @users.size > 0 %>
+      <h3>search results</h3>
       <div id="friend-lookup-results" class="well results-block col-md-10">
         <table class="search-results-table col-md-12">
           <tbody>
-            <% @users.each do |user| do %>
+            <% @users.each do |user| %>
               <tr>
                 <td><strong>Name:</strong> <%= user.full_name %></td>
                 <td><strong>Email:</strong> <%= user.email %></td>
@@ -30,9 +34,10 @@
                                                   user_path(user), 
                                                   class: 'btn btn-xs btn-success' %>
                   <% if current_user.not_friends_with?(user.id) %>
-                    <%= link_to "add as my friend", 
+                    <%= link_to "add friend", 
                         add_friend_path(user: current_user, friend: user),
-                        class: 'btn btn-xs btn-success', method: :post %>
+                        class: 'btn btn-xs btn-success', 
+                        method: :post %>
                   <% else %>
                     <span class="label label-primary">
                       you are already friends
